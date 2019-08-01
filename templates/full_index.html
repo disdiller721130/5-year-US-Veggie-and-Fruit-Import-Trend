@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fruits & Veggie Flows</title>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+   
+     <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/stylemain.css">
+    <style>
+    hr { 
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: inset;
+      border-width: 3px;
+        } 
+    .center {
+      text-align: center;
+      border: 3px solid green;
+        }
+    body {background-color: rgb(213, 176, 230);}
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    
+    <div class = "container">
+      <div class="hero text-center">
+            
+        <div class ="jumbotron text-center">
+                <h1><strong>US Fruits & Veggie Flows</strong></h1>
+                <hr>
+              <!--   <p><a class="btn btn-primary btn-lg" href="/scrape" role="button"><strong>Scrape New Data</strong></a></p> -->
+              <div class="row">
+                <div class="col-md-4, center">
+
+                <p><i>This shows the Fruits and Vegetables flows from US to worldwide countries (Export flow) and the fruits and vegetables flows into USA from the countries around globe(Import flow). It covers only fresh produce and does not cover dried produce, nor processed products including juice </i></p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2, center">
+                  <select id="selDataset" onchange="getData(this.value)">
+                    <option value="dataset1">Export</option>
+                    <option value="dataset2">Import</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <a href="/map" class="btn btn-primary" role="button">See the country locations</a>
+              </div>
+          </div>
+        </div>
+           
+
+
+
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12">
+               <h2 style="color: crimson; text-align:center">US Produce Flow Trend</h2>
+               <hr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr><th>Country</th><th>Market Share%(2017)</th><th>Market Share%(2018)</th><th>Change In M/S</th><th>$Value(2017)</th><th>$Value(2018)</tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <hr>
+            </div>
+        </div>
+    </div>
+    
+
+
+        
+            <div class="row">
+                <div class="col-md-3">
+                <div class="panel panel-default">
+                <div class="panel-body">
+                 <h4>Top 10 Flow Products</h4>
+                 <hr>
+                 <select id="selDataset" onchange="productFlow(this.value)">
+                  <option value="Veggie">Veggie</option>
+                  <option value="Fruit">Fruit</option>
+                </select>
+                  <table class="table1 table-striped">
+                    <thead class="thead-dark">
+                        <tr><th>Product</th><th>$Value</th><th>Country</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table> 
+                </div>
+                </div>
+                </div>
+               
+      
+                
+                <div class="col-md-5" >
+                <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>Top 10 Flow Bar Chart</h4>
+                   
+                <select id="selDataset" onchange="getChart(this.value)">
+                  <option value="Veggie">Veggie</option>
+                  <option value="Fruit">Fruit</option>
+                </select>
+                
+                <div id="plot1"></div>
+
+                <script src="{{ url_for('static', filename='appmain.js') }}"></script>
+
+                    <hr>
+                   
+                </div>
+                </div>
+                </div>
+         
+                <div class="col-md-4">
+                
+                  <h4>Top 10 Flow Pie Charts</h4>
+                     
+
+                  <div id="plot2"></div>
+
+                    
+                </div>
+                </div>  
+                </div>
+            </div>
+               
+
+                
+
+    </div><!--container-->
+   
+     <!-- Bootstrap JS -->
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"crossorigin="anonymous"></script>
+     <script src="{{ url_for('static', filename='appmain.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+/* remove default margin and padding from body */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* set map, body, and html to 100% of the screen size */
+
+body,
+html {
+  height: 80%;
+}
+
+#map {
+    position: fixed;
+    right: 50px;
+    bottom: 30px;
+    height: 45%;
+    width: 60%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.hero {
+  position: relative;
+  height: 550px;
+  padding: 10px;
+  margin: 2;
+  background: blue;
+  background-image: url("produce_image.jpg");
+  background-attachment: fixed;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+a:link {
+  background-color: #36aef4;
+  color: black;
+  padding: 15px 25px;
+  font-style: oblique;
+  font-size: 150%;
+  text-align: center; 
+  text-decoration: none;
+  display: inline-block;
+}
+
+p {
+    font-weight: bold;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: darkblue
+}
